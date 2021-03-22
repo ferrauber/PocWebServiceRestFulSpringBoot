@@ -17,3 +17,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+cron:
+  import-movies: '* * * 3,4,5,6 * ?'

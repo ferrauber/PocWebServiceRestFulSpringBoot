@@ -34,9 +34,7 @@ public class MovieService {
 
     public void importCSVMovieFile() {
         //TODO:
-        // 0 - Fazer a inserção automatica ao iniciar o projeto - (Garantir resultados, independente dos dados de entrada)
-        // 8 - Criar os testes unitários para garantir a integração do arquivo com o banco
-        // 11 - Estruturar o projeto no git pessoal
+        // 1 - Criar os testes unitários para garantir a integração do arquivo com o banco
         log.info("method={}, status={}", "readCSVFile", StatusLog.RUNNING);
 
         if (getAll().size() > 0)
