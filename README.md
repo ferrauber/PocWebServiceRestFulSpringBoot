@@ -21,6 +21,8 @@
 
 # Testes de integração
 
+* Rodar a class DemoApplicationTest, clicando com botão direito sobre e run 'DemoApplicationTest'
+ ou pelo Grade, verification, test;
 
 ### Reference Documentation
 For further reference, please consider the following sections:

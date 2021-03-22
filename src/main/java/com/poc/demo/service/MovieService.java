@@ -33,8 +33,6 @@ public class MovieService {
     private final IMovieRepository movieRepository;
 
     public void importCSVMovieFile() {
-        //TODO:
-        // 1 - Criar os testes unitários para garantir a integração do arquivo com o banco
         log.info("method={}, status={}", "readCSVFile", StatusLog.RUNNING);
 
         if (getAll().size() > 0)
