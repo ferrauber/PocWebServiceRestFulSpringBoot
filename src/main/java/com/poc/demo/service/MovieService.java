@@ -21,7 +21,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -148,17 +147,27 @@ public class MovieService {
     }
 
     private List<MovieWinnerDto> getWinnerProductorMoreThanOneTime(List<Movie> lstWinnerMovies) {
-        List<MovieWinnerDto> lstWinnerProducers = new ArrayList<>();
-        String producerAnt = null;
-        Integer yearAnt = null;
-        for (Movie winnerMovie : lstWinnerMovies) {
-            if (Objects.nonNull(producerAnt) && winnerMovie.getProducer().contains(producerAnt))
-                lstWinnerProducers.add(mapperWinnerDto(producerAnt, yearAnt, winnerMovie.getYear()));
+        List<MovieWinnerDto> lstOnlyMoviesWin = new ArrayList<>();
 
-            producerAnt = winnerMovie.getProducer();
-            yearAnt = winnerMovie.getYear();
+        for (Movie winnerMovies : lstWinnerMovies) {
+
+            List<Movie> lstMoviesWinMoreThanOneTime = lstWinnerMovies.stream()
+                    .filter((movie -> movie.getProducer().contains(winnerMovies.getProducer())))
+                    .collect(Collectors.toList());
+
+            int qtdMoviesProducerWin = lstWinnerMovies.stream()
+                    .filter((movie -> movie.getProducer().contains(winnerMovies.getProducer())))
+                    .collect(Collectors.toList()).size();
+
+            if (qtdMoviesProducerWin > 1) {
+                String nameFirst = lstMoviesWinMoreThanOneTime.get(0).getProducer();
+                String nameSec = lstMoviesWinMoreThanOneTime.get(1).getProducer();
+                String name = (nameFirst.length() < nameSec.length()) ? nameFirst : nameSec;
+                lstOnlyMoviesWin.add(mapperWinnerDto(name, lstMoviesWinMoreThanOneTime.get(0).getYear(), lstMoviesWinMoreThanOneTime.get(1).getYear()));
+            }
         }
-        return lstWinnerProducers;
+
+        return lstOnlyMoviesWin.stream().distinct().collect(Collectors.toList());
     }
 
     private List<MovieWinnerDto> getMoviesWithIntervalMin(List<MovieWinnerDto> lstProducersWinMoreThanOneTime) {

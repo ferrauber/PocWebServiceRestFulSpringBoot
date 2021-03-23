@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IMovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query("SELECT m FROM Movie m WHERE m.isWinner = 1 ORDER BY m.producer")
+    @Query("SELECT m FROM Movie m WHERE m.isWinner = 1 ORDER BY m.year")
     List<Movie> findByWinner();
 }
