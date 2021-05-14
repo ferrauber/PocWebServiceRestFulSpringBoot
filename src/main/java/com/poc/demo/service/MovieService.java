@@ -11,6 +11,8 @@ import com.poc.demo.repository.IMovieRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -82,6 +84,10 @@ public class MovieService {
 
     public Optional<Movie> getById(Long id) {
         return movieRepository.findById(id);
+    }
+
+    public Page<Movie> getAllPeriod(final Integer startYear, final Integer finishYear, Pageable pageable) {
+        return movieRepository.findByPeriod(startYear, finishYear, pageable);
     }
 
     public Movie insert(Movie movie) {

@@ -7,6 +7,10 @@ import com.poc.demo.service.MovieService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -56,6 +61,17 @@ public class MovieController {
             return new ResponseEntity<>(movie, HttpStatus.OK);
         else
             return new ResponseEntity<>(movie, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/consultar/periodo")
+    @ApiOperation(value = "Obter consulta geral de registros em um período de tempo", response = Movie.class, responseContainer = "List")
+    @Transactional(readOnly = true)
+    public Page<Movie> getAllPeriod(@RequestParam("startDate") final Integer startYear,
+                                    @RequestParam("FinishDate") final Integer finishYear,
+                                    @RequestParam("pageNumber") final Integer pageNumber,
+                                    @RequestParam("pageSize") final Integer pageSize) {
+        Pageable pageable = PageRequest.of((pageNumber > 0) ? pageNumber - 1 : pageNumber, pageSize, Sort.by(Sort.Order.asc("year")));
+        return movieService.getAllPeriod(startYear, finishYear, pageable);
     }
 
     @PostMapping(value = "/inserir")
