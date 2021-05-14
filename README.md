@@ -8,8 +8,8 @@
 * Arquivo para leitura precisa estar em resources/static, com nome movielist.csv;
 * Rodar clean, build, bootRun;
 
-* [Acessar swagger pela url] (http://localhost:8080/swagger-ui.html);
-* [Acessar banco de dados H2] (http://localhost:8080/h2) 
+* [Acessar swagger pela url] (http://localhost:8084/swagger-ui.html);
+* [Acessar banco de dados H2] (http://localhost:8084/h2) 
 * Dados de login do H2: 
 * ------ Driver Class: org.h2.Driver
 * ------ JDBC URL: jdbc:h2:file:/C:/Temp/movies.db
